@@ -4,8 +4,18 @@ export default function Modal({ isOpen, onClose, title, children }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
+    <div className="fixed inset-0 bg-black/40 z-[1000] flex items-center justify-center">
+      {/* Backdrop bấm để đóng */}
+      <div
+        className="absolute inset-0"
+        onClick={onClose}
+      ></div>
+
+      {/* Modal content */}
+      <div
+        className="relative z-[1001] bg-white rounded-lg shadow-lg w-full max-w-lg p-6"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">{title}</h2>
@@ -14,7 +24,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
           </button>
         </div>
 
-        {/* Body */}
+        {/* Content */}
         <div>{children}</div>
       </div>
     </div>

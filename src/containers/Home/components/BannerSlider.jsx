@@ -26,7 +26,7 @@ const BannerSlider = ({ banners }) => {
           key={banner.id || i} // Sử dụng id nếu có, fallback về index
           href={banner.link || '#'}
           className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ${
-            i === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            i === current ? 'opacity-100 z-[1]' : 'opacity-0 z-0'
           }`}
           aria-label={banner.title || `Banner ${i + 1}`}
         >
@@ -34,11 +34,11 @@ const BannerSlider = ({ banners }) => {
             src={banner.image}
             alt={banner.title || `Banner ${i + 1}`}
             className="w-full h-full object-cover rounded-lg"
-            onError={(e) => (e.target.src = '/fallback-banner.jpg')} // Fallback image
+            onError={(e) => (e.target.src = '/fallback-banner.jpg')}
           />
         </a>
       ))}
-      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2 z-[5]">
         {banners.map((_, i) => (
           <button
             key={i}
