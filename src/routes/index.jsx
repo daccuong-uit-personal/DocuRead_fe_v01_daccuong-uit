@@ -5,11 +5,13 @@ import AuthModal from "../containers/Auth/Modal/LoginModal.jsx";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 
+// Import BookDetailPage qua index.js
+import { BookDetailPage } from "../containers/BookDeatail/index.jsx";
+
 export default function AppRoutes() {
-  // Biến này nên đến từ Global Context/Redux trong thực tế
-  const isAuthenticated = false; // Đặt FALSE để test chuyển hướng tới /login
+  const isAuthenticated = false; // test login
   const [showAuthModal, setShowAuthModal] = useState(false);
-  
+
   return (
     <Router>
       <div className="flex flex-col min-h-screen">
@@ -19,16 +21,24 @@ export default function AppRoutes() {
         {/* Nội dung */}
         <main className="flex-1">
           <Routes>
-            {/* Xóa hoặc sửa đổi route /login cũ */}
-            <Route path="/" element={<HomePage onRequireLogin={() => setShowAuthModal(true)} />} />
-            {/* ... */}
+            {/* Trang chủ */}
+            <Route
+              path="/"
+              element={<HomePage onRequireLogin={() => setShowAuthModal(true)} />}
+            />
+
+            {/* Trang chi tiết truyện */}
+            <Route path="/book/:id" element={<BookDetailPage />} />
+
+            {/* Nếu path không khớp -> redirect về home */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
-        
-        {/* Component Modal được đặt ở ngoài Routes để nó luôn sẵn sàng */}
-        <AuthModal 
-          isVisible={showAuthModal} 
-          onClose={() => setShowAuthModal(false)} 
+
+        {/* Modal đăng nhập */}
+        <AuthModal
+          isVisible={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
         />
 
         {/* Footer chung */}

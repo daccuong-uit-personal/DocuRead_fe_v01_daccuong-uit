@@ -3,25 +3,18 @@ import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
 
 export default function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Fake login
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // fake API
       alert("Đăng nhập thành công!");
       onLoginSuccess?.(formData);
     } catch (err) {
@@ -49,12 +42,12 @@ export default function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
       />
 
       <div className="flex justify-between text-sm text-gray-500">
-        <label>
+        <label className="flex items-center">
           <input type="checkbox" className="mr-1" />
           Nhớ mật khẩu
         </label>
         <a href="#" className="hover:underline">
-          Quên mật khẩu
+          Quên mật khẩu?
         </a>
       </div>
 
@@ -70,6 +63,13 @@ export default function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
           và
           <a href="#" className="text-blue-500 mx-1">《 Chính sách 》</a>
         </label>
+      </div>
+
+      <div className="text-center text-sm mt-4">
+        Chưa có tài khoản?{" "}
+        <button type="button" onClick={onSwitchToRegister} className="text-blue-500 hover:underline">
+          Đăng ký
+        </button>
       </div>
     </form>
   );

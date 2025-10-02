@@ -1,9 +1,17 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function ChapterItem({ number, title, time, onClick }) {
+export default function ChapterItem({ id, number, title, time }) {
+  const navigate = useNavigate();
+  const { id: bookId } = useParams(); // lấy id sách từ URL
+
+  const handleClick = () => {
+    navigate(`/book/${bookId}/chapter/${id}`);
+  };
+
   return (
     <div
-      onClick={onClick}
+      onClick={handleClick}
       className="flex justify-between items-center border-b py-2 cursor-pointer hover:bg-gray-50"
     >
       <span className="text-sm font-medium">
