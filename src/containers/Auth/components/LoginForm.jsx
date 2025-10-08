@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Input from "../../../components/ui/Input";
 import Button from "../../../components/ui/Button";
+import { login } from "../services/loginService";
 
 export default function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
-  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -13,17 +14,14 @@ export default function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // fake API
-      alert("Đăng nhập thành công!");
-      onLoginSuccess?.(formData);
-    } catch (err) {
-      alert("Đăng nhập thất bại!");
-    } finally {
-      setLoading(false);
+    const result = await login(formData.email, formData.password);
+    setLoading(false);
+
+    if (result.success && result.user) {
+      onLoginSuccess(result.user);
     }
   };
-
+  
   return (
     <form
       onSubmit={handleSubmit}
@@ -35,8 +33,8 @@ export default function LoginForm({ onLoginSuccess, onSwitchToRegister }) {
 
       <Input
         type="text"
-        name="username"
-        value={formData.username}
+        name="email"
+        value={formData.email}
         onChange={handleChange}
         placeholder="Tên tài khoản"
       />

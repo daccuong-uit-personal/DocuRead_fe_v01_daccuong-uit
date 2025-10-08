@@ -37,7 +37,10 @@ export default function LoginModal({ isOpen, onClose }) {
         <div>
           {mode === MODE.ACCOUNT && (
             <LoginForm
-              onLoginSuccess={onClose}
+              onLoginSuccess={(user) => {
+                onClose();
+                console.log("Đăng nhập thành công:", user);
+              }}
               onSwitchToRegister={() => {
                 onClose();
                 navigate("/register");

@@ -6,6 +6,7 @@ export default function Input({
   placeholder,
   type = "text",
   id,
+  name,
 }) {
   const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
   const isFilled = value?.toString().length > 0;
@@ -15,9 +16,10 @@ export default function Input({
       <input
         type={type}
         id={inputId}
-        value={value}
+        name={name}
+        value={value ?? ""}
         onChange={onChange}
-        placeholder=" "
+        placeholder="" // ❌ không dùng dấu cách để tránh quét
         className={`
           peer
           w-full
@@ -27,25 +29,25 @@ export default function Input({
           text-sm
           text-gray-700 dark:text-white
           bg-white dark:bg-gray-800
-          placeholder-transparent
           focus:outline-none
           focus:ring-2 focus:ring-blue-500
-          focus:border border-blue-500
+          focus:border-blue-500
           transition-all
         `}
       />
       <label
         htmlFor={inputId}
         className={`
-          absolute left-3 top-2 text-sm text-gray-500 dark:text-gray-400
+          absolute left-3 
+          text-gray-500 dark:text-gray-400
+          pointer-events-none select-none
           transition-all duration-200
-          peer-placeholder-shown:top-3.5
-          peer-placeholder-shown:text-base
-          peer-placeholder-shown:text-gray-400
-          peer-focus:top-2
-          peer-focus:text-sm
+          ${isFilled
+            ? "top-1 text-xs text-blue-500"
+            : "top-3.5 text-base text-gray-400"}
+          peer-focus:top-1
+          peer-focus:text-xs
           peer-focus:text-blue-500
-          ${isFilled ? "top-2 text-sm text-blue-500" : ""}
         `}
       >
         {placeholder}
