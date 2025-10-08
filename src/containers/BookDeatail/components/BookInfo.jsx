@@ -1,48 +1,88 @@
 import React from "react";
+import Button from "../../../components/ui/Button";
+import AuthorInfo from "./AuthorInfo";
 
-export default function BookInfo({ book, onRead, onAddShelf, onFollow, onShare }) {
+export default function BookInfo({
+  book,
+  onRead,
+  onAddShelf,
+  onFollow,
+  onShare,
+}) {
   if (!book) return null;
 
   return (
-    <div className="flex gap-6">
+    <div className="bg-white rounded-2xl shadow-sm p-6 md:p-8 flex flex-col lg:flex-row gap-10">
       {/* Ảnh bìa */}
-      <img
-        src={book.coverUrl}
-        alt={book.title}
-        className="w-40 h-56 object-cover rounded"
-      />
+      <div className="flex-shrink-0 flex justify-center">
+        <img
+          src={book.coverUrl}
+          alt={book.title}
+          className="w-48 h-64 object-cover rounded-xl shadow-md border border-gray-100"
+        />
+      </div>
 
-      {/* Meta + nút */}
-      <div className="flex-1">
-        <h1 className="text-2xl font-bold mb-2">{book.title}</h1>
-        <p className="text-gray-600 mb-1">Tác giả: {book.author}</p>
-        <div className="flex gap-2 flex-wrap mb-2">
-          {book.tags?.map((tag) => (
-            <span
-              key={tag}
-              className="bg-gray-200 text-sm px-2 py-1 rounded"
-            >
-              {tag}
-            </span>
-          ))}
+      {/* Thông tin chính */}
+      <div className="flex flex-col justify-between flex-1 min-w-0">
+        <div>
+          <h1 className="text-xl md:text-2xl font-semibold text-gray-900 mb-2 leading-snug">
+            {book.title}
+          </h1>
+
+          <p className="text-base text-gray-600 mb-2">
+            Tác giả:{" "}
+            <span className="font-medium text-gray-800">{book.author}</span>
+          </p>
+
+          {/* Tag */}
+          {book.tags?.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-3">
+              {book.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-blue-50 text-blue-600 text-sm font-medium px-3 py-1 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <p className="text-sm text-gray-500">
+            <span>{book.chapters?.length || 0} chương</span> ·{" "}
+            <span>{book.views.toLocaleString()} lượt xem</span> ·{" "}
+            <span className="capitalize">{book.status}</span>
+          </p>
         </div>
-        <p className="text-sm text-gray-500 mb-4">
-          {book.chapters?.length || 0} chương · {book.views} lượt xem · {book.status}
-        </p>
-        <div className="flex gap-2">
-          <button onClick={onRead} className="bg-red-600 text-white px-4 py-2 rounded">
+
+        {/* Nút hành động */}
+        <div className="flex flex-wrap gap-3 mt-5">
+          <Button onClick={onRead} variant="primary" size="md">
             Đọc tiếp
-          </button>
-          <button onClick={onAddShelf} className="bg-gray-200 px-4 py-2 rounded">
+          </Button>
+          <Button onClick={onAddShelf} variant="secondary" size="md">
             Thêm vào tủ
-          </button>
-          <button onClick={onFollow} className="bg-gray-200 px-4 py-2 rounded">
+          </Button>
+          <Button onClick={onFollow} variant="secondary" size="md">
             Theo dõi
-          </button>
-          <button onClick={onShare} className="bg-gray-200 px-4 py-2 rounded">
+          </Button>
+          <Button onClick={onShare} variant="secondary" size="md">
             Chia sẻ
-          </button>
+          </Button>
         </div>
+      </div>
+
+      {/* Thông tin tác giả */}
+      <div className="w-full lg:w-[280px] flex-shrink-0">
+        <AuthorInfo
+          author={{
+            name: book.author || "Tác giả không rõ",
+            avatar: book.authorAvatar || 'https://i.pravatar.cc/40?img=11',
+            totalWorks: book.authorWorks?.length || 0,
+            followers: book.authorFollowers || 10000,
+            note: book.authorNote || 'Hello everyone!!!',
+          }}
+        />
       </div>
     </div>
   );

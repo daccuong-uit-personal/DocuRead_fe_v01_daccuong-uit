@@ -13,31 +13,28 @@ export default function DetailTabs({ book }) {
   const [tab, setTab] = useState(TABS.OVERVIEW);
 
   return (
-    <div className="mt-6">
-      {/* Thanh điều hướng */}
-      <div className="flex border-b">
-        <button
-          className={`px-4 py-2 ${tab === TABS.OVERVIEW ? "border-b-2 border-red-500 text-red-500" : ""}`}
-          onClick={() => setTab(TABS.OVERVIEW)}
-        >
-          Giới thiệu
-        </button>
-        <button
-          className={`px-4 py-2 ${tab === TABS.RATING ? "border-b-2 border-red-500 text-red-500" : ""}`}
-          onClick={() => setTab(TABS.RATING)}
-        >
-          Đánh giá
-        </button>
-        <button
-          className={`px-4 py-2 ${tab === TABS.COMMENTS ? "border-b-2 border-red-500 text-red-500" : ""}`}
-          onClick={() => setTab(TABS.COMMENTS)}
-        >
-          Bình luận
-        </button>
+    <div className="bg-white rounded-2xl shadow-sm">
+      <div className="flex border-b border-gray-100 text-sm font-medium">
+        {[
+          { key: TABS.OVERVIEW, label: "Giới thiệu" },
+          { key: TABS.RATING, label: "Đánh giá" },
+          { key: TABS.COMMENTS, label: "Bình luận" },
+        ].map((item) => (
+          <button
+            key={item.key}
+            onClick={() => setTab(item.key)}
+            className={`px-5 py-3 transition-colors ${
+              tab === item.key
+                ? "border-b-2 border-blue-600 text-blue-600"
+                : "text-gray-500 hover:text-blue-500"
+            }`}
+          >
+            {item.label}
+          </button>
+        ))}
       </div>
 
-      {/* Nội dung tab */}
-      <div className="p-4">
+      <div className="p-6">
         {tab === TABS.OVERVIEW && <Overview description={book.description} />}
         {tab === TABS.RATING && <Rating rating={book.rating} />}
         {tab === TABS.COMMENTS && <Comments bookId={book.id} />}

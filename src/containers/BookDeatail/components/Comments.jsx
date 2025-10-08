@@ -17,25 +17,27 @@ export default function Comments({ bookId }) {
   };
 
   return (
-    <div>
-      <h3 className="text-lg font-semibold mb-2">Bình luận</h3>
-      <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
+    <div className="space-y-4">
+      <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="border flex-1 px-2 py-1 rounded"
+          className="border border-gray-300 flex-1 px-3 py-2 rounded-lg text-sm focus:ring-2 focus:ring-blue-400 outline-none"
           placeholder="Viết bình luận..."
         />
-        <button type="submit" className="bg-red-600 text-white px-3 rounded">
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm"
+        >
           Gửi
         </button>
       </form>
 
-      <div className="space-y-2">
+      <div className="divide-y divide-gray-100">
         {comments.map((c) => (
-          <div key={c.id} className="border-b pb-2">
-            <p className="text-sm font-semibold">{c.user}</p>
-            <p>{c.content}</p>
+          <div key={c.id} className="py-3">
+            <p className="font-medium text-gray-800">{c.user}</p>
+            <p className="text-gray-700">{c.content}</p>
             <span className="text-xs text-gray-400">{c.time}</span>
           </div>
         ))}

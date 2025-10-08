@@ -23,7 +23,7 @@ const BannerSlider = ({ banners }) => {
     <div className="relative w-full h-80 overflow-hidden rounded-lg">
       {banners.map((banner, i) => (
         <a
-          key={banner.id || i} // Sử dụng id nếu có, fallback về index
+          key={banner.id || i}
           href={banner.link || '#'}
           className={`absolute top-0 left-0 w-full h-full transition-opacity duration-700 ${
             i === current ? 'opacity-100 z-[1]' : 'opacity-0 z-0'

@@ -5,11 +5,10 @@ import AuthModal from "../containers/Auth/Modal/LoginModal.jsx";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 
-// Import BookDetailPage qua index.js
 import { BookDetailPage } from "../containers/BookDeatail/index.jsx";
 
 export default function AppRoutes() {
-  const isAuthenticated = false; // test login
+  const isAuthenticated = false;
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   return (
