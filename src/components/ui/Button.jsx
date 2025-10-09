@@ -29,7 +29,6 @@ export default function Button({
     lg: "px-5 py-2.5 text-sm rounded-lg",
   };
 
-
   const styles = {
     primary: `
       bg-blue-500/90 text-white
@@ -60,7 +59,13 @@ export default function Button({
     `,
   };
 
-  const contextStyle = context === "login" ? "w-full" : "";
+  // 👇 Style phụ thuộc vào context
+  const contextStyles = {
+    login: "w-full",
+    tab: "rounded-full text-sm px-4 py-1", // làm tròn cho tab
+    filter: "rounded-full text-sm px-3 py-1", // giống như filter tag
+    sort: "text-xs px-2 py-1", // nếu cần thêm context cho sort sau này
+  };
 
   return (
     <button
@@ -71,7 +76,7 @@ export default function Button({
         ${base}
         ${sizes[size]}
         ${styles[variant] || styles.primary}
-        ${contextStyle}
+        ${contextStyles[context] || ""}
         ${className}
       `}
     >

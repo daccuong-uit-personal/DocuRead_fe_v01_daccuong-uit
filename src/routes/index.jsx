@@ -6,6 +6,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 
 import { BookDetailPage } from "../containers/BookDeatail/index.jsx";
+import { CategoriesPage } from "../containers/Categories/index.jsx";
 
 export default function AppRoutes() {
   const isAuthenticated = false;
@@ -28,6 +29,7 @@ export default function AppRoutes() {
 
             {/* Trang chi tiết truyện */}
             <Route path="/book/:id" element={<BookDetailPage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
 
             {/* Nếu path không khớp -> redirect về home */}
             <Route path="*" element={<Navigate to="/" replace />} />

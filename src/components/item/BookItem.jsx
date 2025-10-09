@@ -56,6 +56,44 @@ const BookItem = ({ id, cover, title, author, description, variant = 'card', ran
     );
   }
 
+  // 📦 CATEGORY VARIANT
+  if (variant === "categories") {
+    return (
+      <div
+        onClick={handleClick}
+        className="flex items-start gap-4 py-4 cursor-pointer hover:bg-gray-50 px-2"
+      >
+        <img
+          src={cover || fallbackImage}
+          alt={title}
+          className="w-24 h-32 object-cover flex-shrink-0 rounded shadow"
+          onError={(e) => (e.target.src = fallbackImage)}
+        />
+        <div className="flex flex-col flex-1">
+          <h3 className="text-lg font-semibold text-gray-800 hover:text-blue-600 line-clamp-1">
+            {title}
+          </h3>
+
+          <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+            {description}
+          </p>
+
+          <div className="text-xs text-gray-500 space-x-2 mt-2">
+            {author && <span>{author}</span>}
+            <span>Huyền huyễn</span>
+            <span>Đang ra</span>
+            <span>400 vạn chữ</span>
+          </div>
+
+          <p className="text-xs text-gray-400 mt-1">
+            <span className="font-medium text-gray-700">Chương mới nhất:</span>{" "}
+            Chương 422 · 2024-09-01 00:19:06
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   // 📚 DEFAULT CARD VARIANT
   return (
     <div
